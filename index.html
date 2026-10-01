@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Chat</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .chat-container {
+      width: 95%;
+      max-width: 800px;
+      height: 90vh;
+      background: #1e293b;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    header {
+      padding: 20px;
+      background: #111827;
+      border-bottom: 1px solid #334155;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    #messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .message {
+      margin-bottom: 16px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      max-width: 80%;
+      line-height: 1.5;
+    }
+
+    .user {
+      margin-left: auto;
+      background: #2563eb;
+    }
+
+    .ai {
+      margin-right: auto;
+      background: #334155;
+    }
+
+    .input-area {
+      display: flex;
+      gap: 10px;
+      padding: 15px;
+      background: #111827;
+    }
+
+    textarea {
+      flex: 1;
+      resize: none;
+      height: 50px;
+      border: none;
+      outline: none;
+      border-radius: 10px;
+      padding: 14px;
+      background: #1e293b;
+      color: white;
+      font-size: 15px;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 0 20px;
+      background: #2563eb;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="chat-container">
+
+    <header>
+      <h1>🤖 My AI Model</h1>
+      <p>Ask me anything</p>
+    </header>
+
+    <div id="messages">
+      <div class="message ai">
+        Hello! I'm your AI assistant. How can I help you?
+      </div>
+    </div>
+
+    <div class="input-area">
+      <textarea
+        id="input"
+        placeholder="Type your message..."
+      ></textarea>
+
+      <button onclick="sendMessage()">Send</button>
+    </div>
+
+  </div>
+
+  <script>
+    async function sendMessage() {
+      const input = document.getElementById("input");
+      const messages = document.getElementById("messages");
+
+      const text = input.value.trim();
+
+      if (!text) return;
+
+       
+      const userMessage = document.createElement("div");
+      userMessage.className = "message user";
+      userMessage.textContent = text;
+      messages.appendChild(userMessage);
+
+      input.value = "";
+
+      
+      const aiMessage = document.createElement("div");
+      aiMessage.className = "message ai";
+      aiMessage.textContent = "Thinking...";
+      messages.appendChild(aiMessage);
+
+      messages.scrollTop = messages.scrollHeight;
+
+   
+
+      setTimeout(() => {
+        aiMessage.textContent =
+          "Connect this interface to an AI model/API to generate real responses.";
+      }, 800);
+    }
+
+    document.getElementById("input").addEventListener("keydown", function(e) {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+  </script>
+
+</body>
+</html>
